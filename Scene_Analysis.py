@@ -1,17 +1,4 @@
 #!/usr/bin/env python3
-"""
-Interactive Traffic Analysis with YOLO World Zero-Shot Object Detection
-=====================================================================
-
-This script performs comprehensive traffic vehicle analysis including:
-1. Zero-shot object detection using YOLO World
-2. Spatial relationship analysis between detected objects
-3. Performance evaluation using IoU metrics
-4. Visualization and CSV export of results
-
-Author: AI Assistant
-Date: 2024
-"""
 
 import os
 import cv2
