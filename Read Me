@@ -1,0 +1,32 @@
+traffic.mp4
+    │
+    ▼
+[Stage 1] YOLOWorldDetector        → detects car / motorcycle / rickshaw
+    │
+    ├──▶ [Stage 2] SpatialAnalyzer → pairwise distances, IoU vs GT labels,
+    │                                 precision / recall / F1 / mIoU
+    │                                 ► spatial_accuracy_metrics.csv
+    │                                 ► performance_metrics.csv
+    │
+    ├──▶ [Stage 3] DeepSORTWrapper  → persistent track IDs across frames
+    │            + EKFTracker        → per-track velocity & direction (EKF)
+    │                                 ► temporal_accuracy_metrics.csv
+    │                                 ► mota_hota.csv (placeholder)
+    │
+    ├──▶ [Stage 4] VLMCaptioner     → BLIP-2 or LLaVA frame caption
+    │                                 + scene label (normal / congestion /
+    │                                   accident / suspicious)
+    │                                 ► frame_captions.csv
+    │
+    └──▶ [Stage 5] CaptionEvaluator → BLEU-1/2/4, ROUGE-1/2/L, METEOR
+                                      ► captioning_metrics.csv
+
+git clone https://github.com/ZQPei/deep_sort_pytorch
+cd deep_sort_pytorch && pip install -r requirements.txt
+
+pip install inference[yolo-world] supervision
+
+VIDEO_PATH     = "traffic.mp4"
+DATASET_DIR    = "Vehicles type.v1i.yolov11"
+VLM_BACKEND    = "blip2"
+CAPTION_GT_CSV = None    # set to your GT CSV to enable BLEU/ROUGE/METEOR
